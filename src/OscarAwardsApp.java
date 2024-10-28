@@ -6,7 +6,7 @@ import java.util.List;
 
 public class OscarAwardsApp extends JFrame {
     private DefaultTableModel tableModel;
-    private OscarAwardData datas = new OscarAwardData();
+    private final OscarAwardData datas = new OscarAwardData();
     private final OscarAwardFilter awardFilter = new OscarAwardFilter();
     private List<OscarAward> awardsData;
 
