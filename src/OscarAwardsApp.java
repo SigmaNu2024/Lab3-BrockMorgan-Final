@@ -26,8 +26,20 @@ public class OscarAwardsApp extends JFrame {
         JButton filterButton = new JButton("Filter by Category");
         filterButton.addActionListener(_ -> showFilterDialog());
 
+        JButton filterByYearButton = new JButton("Filter by Screening Year");
+        filterByYearButton.addActionListener(_ -> showYearFilterDialog());
+
+        JButton filterByCeremonyYearButton = new JButton("Filter by Ceremony Year");
+        filterByCeremonyYearButton.addActionListener(_ -> showCeremonyYearFilterDialog());
+
+        JButton clearFilterButton = new JButton("Clear Filter");
+        clearFilterButton.addActionListener(_ -> loadData());
+
         JPanel panel = new JPanel();
         panel.add(filterButton);
+        panel.add(filterByYearButton);
+        panel.add(filterByCeremonyYearButton);
+        panel.add(clearFilterButton);
         add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.NORTH);
     }
@@ -64,6 +76,50 @@ public class OscarAwardsApp extends JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please enter a valid category");
+        }
+    }
+
+    private void showYearFilterDialog() {
+        String yearString = JOptionPane.showInputDialog(this, "Enter the screen year you want to filter:");
+
+        if ((yearString != null) && !yearString.trim().isEmpty()) {
+            try {
+                int year = Integer.parseInt(yearString.trim());
+                List<OscarAward> filteredAwards = awardFilter.filterByYear(awardsData, year);
+
+                System.out.println("Number of filtered awards by year: " + filteredAwards.size());
+                if (filteredAwards.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "No Awards Found for the specified year");
+                } else {
+                    refreshTable(filteredAwards);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid year");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter a valid year");
+        }
+    }
+
+    private void showCeremonyYearFilterDialog() {
+        String ceremonyYearString = JOptionPane.showInputDialog(this, "Enter the ceremony year you want to filter:");
+
+        if ((ceremonyYearString != null) && !ceremonyYearString.trim().isEmpty()) {
+            try {
+                int ceremonyYear = Integer.parseInt(ceremonyYearString.trim());
+                List<OscarAward> filteredAwards = awardFilter.filterByCeremonyYear(awardsData, ceremonyYear);
+
+                System.out.println("Number of filtered awards by ceremony year: " + filteredAwards.size());
+                if (filteredAwards.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "No Awards Found for the specified ceremony year");
+                } else {
+                    refreshTable(filteredAwards);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Please enter a valid ceremony year");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter a valid ceremony year");
         }
     }
 
