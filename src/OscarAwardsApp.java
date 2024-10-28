@@ -48,7 +48,7 @@ public class OscarAwardsApp extends JFrame {
                 award.isWinner()
         }));
 
-        awardsData.revalidate();
+        //awardsData.revalidate();
 
     }
 
