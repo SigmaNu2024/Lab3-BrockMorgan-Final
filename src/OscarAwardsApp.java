@@ -48,8 +48,6 @@ public class OscarAwardsApp extends JFrame {
                 award.isWinner()
         }));
 
-        //awardsData.revalidate();
-
     }
 
     private void showFilterDialog() {
@@ -68,6 +66,7 @@ public class OscarAwardsApp extends JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a valid category");
         }
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
