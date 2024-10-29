@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-//import java.awt.event.ActionListener;
 import java.util.List;
 
 public class OscarAwardsApp extends JFrame {
