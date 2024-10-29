@@ -1,6 +1,4 @@
 import javax.swing.*;
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -26,6 +24,7 @@ public class OscarAwardsApp extends JFrame {
         JTable awardTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(awardTable);
 
+        //Initialize filters
         JButton filterButton = new JButton("Filter by Category");
         filterButton.addActionListener(_ -> showFilterDialog());
 
@@ -52,13 +51,16 @@ public class OscarAwardsApp extends JFrame {
                 int selectedRow = awardTable.getSelectedRow();
                 if (selectedRow != -1) {
                     OscarAward selectedAward = awardsData.get(selectedRow);
-                    detailsPanel.updateDetails(selectedAward); // Update details panel
+
+                    //Update Details Panel
+                    detailsPanel.updateDetails(selectedAward);
                 } else {
                     detailsPanel.updateDetails(null); // Clear details if no selection
                 }
             }
         });
 
+        //Panel Design
         add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.NORTH);
         add(statsPanel, BorderLayout.EAST);
@@ -67,7 +69,9 @@ public class OscarAwardsApp extends JFrame {
     }
 
 
-    private void loadData() {
+    private void loadData()
+    {
+        //Load Data From CSV
         awardsData = datas.readDataFromCSV("the_oscar_award.csv");
         refreshTable(awardsData);
         statsPanel.updateStats(awardsData);
@@ -98,12 +102,15 @@ public class OscarAwardsApp extends JFrame {
                 JOptionPane.showMessageDialog(this, "No Awards Found");
             } else {
                 refreshTable(filteredAwards);
+                //Update Stats Panel for filtered results
+                statsPanel.updateStats(filteredAwards);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Please enter a valid category");
         }
     }
 
+    //Outputs number of items removed from filter
     private void showYearFilterDialog() {
         String yearString = JOptionPane.showInputDialog(this, "Enter the screen year you want to filter:");
 

@@ -4,11 +4,12 @@ import java.awt.*;
 public class DetailsPanel extends JPanel {
     private JLabel[] detailLabels;
 
-    public DetailsPanel() {
+    public DetailsPanel()
+    {
         setLayout(new GridLayout(6, 1));
         setBorder(BorderFactory.createTitledBorder("Details"));
 
-        // Initialize labels
+        // Initialize Oscar labels
         String[] labelNames = {
                 "Screen Year: ",
                 "Ceremony Year: ",
@@ -19,14 +20,16 @@ public class DetailsPanel extends JPanel {
         };
         detailLabels = new JLabel[labelNames.length];
 
-        for (int i = 0; i < labelNames.length; i++) {
+        for (int i = 0; i < labelNames.length; i++)
+        {
             detailLabels[i] = new JLabel(labelNames[i]);
             add(detailLabels[i]);
         }
     }
 
     public void updateDetails(OscarAward award) {
-        if (award != null) {
+        if (award != null)
+        {
             detailLabels[0].setText("Screen Year: " + award.getYearFilm());
             detailLabels[1].setText("Ceremony Year: " + award.getYearCeremony());
             detailLabels[2].setText("Category: " + award.getCategory());

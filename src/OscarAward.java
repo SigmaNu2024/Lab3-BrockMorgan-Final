@@ -8,6 +8,7 @@ public class OscarAward {
     private boolean winner;
 
     // Getters and Setters
+
     public int getYearFilm() { return yearFilm; }
     public void setYearFilm(int yearFilm) { this.yearFilm = yearFilm; }
 

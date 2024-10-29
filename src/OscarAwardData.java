@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+//Reads data from CSV and parses through data to collect
 public class OscarAwardData {
     public List<OscarAward> readDataFromCSV(String fileName) {
         List<OscarAward> awards = new ArrayList<>();

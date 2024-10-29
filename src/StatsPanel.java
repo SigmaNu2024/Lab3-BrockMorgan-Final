@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StatsPanel extends JPanel {
-    private JTable statsTable;
-    private DefaultTableModel statsTableModel;
+    private final DefaultTableModel statsTableModel;
 
     public StatsPanel() {
         setLayout(new BorderLayout());
@@ -15,7 +14,7 @@ public class StatsPanel extends JPanel {
 
         String[] columnNames = {"Statistic", "Value"};
         statsTableModel = new DefaultTableModel(columnNames, 1);
-        statsTable = new JTable(statsTableModel);
+        JTable statsTable = new JTable(statsTableModel);
 
         add(new JScrollPane(statsTable), BorderLayout.CENTER);
     }
@@ -42,7 +41,7 @@ public class StatsPanel extends JPanel {
         StringBuilder categoryStats = new StringBuilder();
         awardsByCategory.forEach((category, count) -> categoryStats.append(category).append(" (").append(count).append("), "));
 
-        if (categoryStats.length() > 0) {
+        if (!categoryStats.isEmpty()) {
             categoryStats.setLength(categoryStats.length() - 2); // Remove trailing comma
         }
 
