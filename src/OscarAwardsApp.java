@@ -1,4 +1,6 @@
 import javax.swing.*;
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -8,6 +10,8 @@ public class OscarAwardsApp extends JFrame {
     private final OscarAwardData datas = new OscarAwardData();
     private final OscarAwardFilter awardFilter = new OscarAwardFilter();
     private List<OscarAward> awardsData;
+    private StatsPanel statsPanel;
+    private DetailsPanel detailsPanel;
 
     public OscarAwardsApp() {
         setTitle("Oscar Awards Data 1927-2018");
@@ -39,13 +43,34 @@ public class OscarAwardsApp extends JFrame {
         panel.add(filterByYearButton);
         panel.add(filterByCeremonyYearButton);
         panel.add(clearFilterButton);
+
+        statsPanel = new StatsPanel();
+        detailsPanel = new DetailsPanel();
+
+        awardTable.getSelectionModel().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = awardTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    OscarAward selectedAward = awardsData.get(selectedRow);
+                    detailsPanel.updateDetails(selectedAward); // Update details panel
+                } else {
+                    detailsPanel.updateDetails(null); // Clear details if no selection
+                }
+            }
+        });
+
         add(scrollPane, BorderLayout.CENTER);
         add(panel, BorderLayout.NORTH);
+        add(statsPanel, BorderLayout.EAST);
+        add(detailsPanel, BorderLayout.SOUTH);
+
     }
+
 
     private void loadData() {
         awardsData = datas.readDataFromCSV("the_oscar_award.csv");
         refreshTable(awardsData);
+        statsPanel.updateStats(awardsData);
     }
 
     private void refreshTable(List<OscarAward> awards) {
@@ -60,6 +85,7 @@ public class OscarAwardsApp extends JFrame {
         }));
 
     }
+
 
     private void showFilterDialog() {
         String category = JOptionPane.showInputDialog(this, "Enter the category you want to filter: ");
